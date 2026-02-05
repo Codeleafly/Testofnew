@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Flappy Bird - Smooth Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #70c5ce;
+            font-family: 'Roboto', sans-serif;
+            user-select: none;
+        }
+
+        #gameCanvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* --- LOADING SCREEN --- */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #2c3e50;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: opacity 0.5s;
+        }
+
+        .loading-bar-container {
+            width: 300px;
+            height: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #4ade80; /* Green */
+            transition: width 0.3s ease-out;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        .loading-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #bdc3c7;
+        }
+
+        /* Camera Box */
+        .camera-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 160px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            background: #000;
+            z-index: 50;
+            display: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .camera-container:hover {
+            opacity: 1;
+        }
+
+        #output_canvas {
+            width: 100%;
+            height: 100%;
+            transform: scaleX(-1);
+        }
+
+        #input_video { display: none; }
+
+        /* Bottom Bar */
+        .instruction-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            letter-spacing: 1px;
+            z-index: 40;
+            backdrop-filter: blur(5px);
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .highlight-text {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* UI Overlays */
+        #startScreen, #gameOverScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 60;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 400px;
+            display: none; /* Hidden until loaded */
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-family: 'Press Start 2P', cursive;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: transform 0.1s, background 0.2s;
+            box-shadow: 0 4px 0 #d97706;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #d97706;
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            box-shadow: none;
+            cursor: not-allowed;
+            color: #e5e7eb;
+        }
+
+        .btn-secondary {
+            background: #3b82f6;
+            box-shadow: 0 4px 0 #1d4ed8;
+        }
+
+        #scoreBoard {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 40px;
+            color: white;
+            text-shadow: 2px 2px 0 #000;
+            z-index: 30;
+        }
+
+        /* Loader Spinner for button */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loadingOverlay">
+        <h2 style="font-family: 'Press Start 2P'; margin-bottom: 20px;">LOADING AI...</h2>
+        <div class="loading-bar-container">
+            <div id="loadingFill" class="loading-bar-fill"></div>
+        </div>
+        <div id="loadingPercent" class="loading-text">0%</div>
+        <div id="currentFile" style="font-size: 12px; margin-top: 5px; opacity: 0.7;">Initializing...</div>
+    </div>
+
+    <!-- Game Elements -->
+    <video id="input_video"></video>
+    <canvas id="gameCanvas"></canvas>
+    <div id="scoreBoard">0</div>
+
+    <div id="cameraBox" class="camera-container">
+        <canvas id="output_canvas"></canvas>
+    </div>
+
+    <div class="instruction-bar">
+        STATUS: <span id="statusText">System Loading...</span> | TIP: Pinch <span class="highlight-text">Thumb & Index</span> to Jump
+    </div>
+
+    <!-- Start Screen -->
+    <div id="startScreen">
+        <h1>FLAPPY HANDS</h1>
+        <p class="mb-4 text-gray-600 font-bold" id="startInstruction">AI Loaded. Connect Camera.</p>
+        
+        <button id="enableCameraBtn" class="btn btn-secondary" onclick="enableCamera()">
+            ENABLE CAMERA
+        </button>
+
+        <button id="startBtn" class="btn" style="display: none;" onclick="startGame()">
+            START GAME
+        </button>
+        
+        <p id="gestureHint" class="mt-4 text-xs text-green-600 font-bold animate-pulse" style="display: none;">
+            or PINCH to START!
+        </p>
+    </div>
+
+    <div id="gameOverScreen">
+        <h1>GAME OVER</h1>
+        <p id="finalScore" class="mb-4 text-xl font-bold text-gray-700">Score: 0</p>
+        <button onclick="resetGame()" class="btn">RETRY</button>
+        <p class="mt-4 text-xs text-green-600 font-bold animate-pulse">
+            or PINCH to RETRY!
+        </p>
+    </div>
+
+    <script>
+        // --- 1. SCRIPT LOADING SYSTEM ---
+        const libraries = [
+            "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js",
+            "https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js",
+            "https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js",
+            "https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
+        ];
+
+        let loadedCount = 0;
+        
+        function updateProgress(percent, filename) {
+            document.getElementById('loadingFill').style.width = percent + '%';
+            document.getElementById('loadingPercent').innerText = percent + '%';
+            document.getElementById('currentFile').innerText = 'Loading: ' + filename;
+        }
+
+        function loadScript(url) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = url;
+                script.crossOrigin = "anonymous";
+                script.onload = () => resolve(url);
+                script.onerror = () => reject(url);
+                document.head.appendChild(script);
+            });
+        }
+
+        async function loadAllLibraries() {
+            try {
+                for (let i = 0; i < libraries.length; i++) {
+                    const libName = libraries[i].split('/').pop();
+                    updateProgress(Math.floor((i / libraries.length) * 100), libName);
+                    await loadScript(libraries[i]);
+                    loadedCount++;
+                }
+                updateProgress(100, "Complete!");
+                
+                // Slight delay to show 100%
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('loadingOverlay').style.display = 'none';
+                        document.getElementById('startScreen').style.display = 'block';
+                    }, 500);
+                }, 500);
+
+            } catch (error) {
+                console.error("Failed to load script", error);
+                document.getElementById('currentFile').innerText = "Error loading resources. Please refresh.";
+                document.getElementById('currentFile').style.color = "red";
+            }
+        }
+
+        // Start loading immediately
+        loadAllLibraries();
+
+
+        // --- 2. GAME LOGIC ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let frames = 0;
+        let score = 0;
+        let gameRunning = false;
+        let bird;
+        let pipes = [];
+        let animationId;
+        let isCameraReady = false;
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const birdImg = new Image();
+        birdImg.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23FFD700' d='M416 192c0-88.4-71.6-160-160-160S96 103.6 96 192c0 24.5 5.5 47.9 15.4 69.1C66.7 266.3 32 308.5 32 358.9c0 44.2 35.8 80 80 80h288c44.2 0 80-35.8 80-80 0-46.7-29.6-86.3-71.3-99.8 4.7-19.9 7.3-40.6 7.3-62.1z'/%3E%3Cpath fill='%23FFF' d='M352 208c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48 48 21.5 48 48z'/%3E%3Ccircle cx='304' cy='208' r='16' fill='%23000'/%3E%3Cpath fill='%23FF8C00' d='M416 336l64-32-64-32v64z'/%3E%3Cpath fill='%23FF4500' d='M128 368c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32s-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32z'/%3E%3Cpath fill='%23FFF' d='M112 192c0-53 43-96 96-96s96 43 96 96h-96l-96 0z' opacity='0.3'/%3E%3C/svg%3E";
+
+        class Bird {
+            constructor() {
+                this.x = canvas.width / 3;
+                this.y = canvas.height / 2;
+                this.velocity = 0;
+                // --- PHYSICS UPDATED FOR CONTROL ---
+                this.gravity = 0.5;      // Standard gravity (was 0.6)
+                this.jumpStrength = -8;  // Reduced jump strength (was -10)
+                this.width = 50;
+                this.height = 40;
+                this.radius = 20;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                let rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 4, (this.velocity * 0.1)));
+                ctx.rotate(rotation);
+                
+                if (birdImg.complete) {
+                     ctx.drawImage(birdImg, -this.width/2, -this.height/2, this.width, this.height);
+                } else {
+                    ctx.fillStyle = 'yellow';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity += this.gravity;
+                this.y += this.velocity;
+
+                // Ceiling cap (prevent flying into space)
+                if (this.y < 0) {
+                    this.y = 0;
+                    this.velocity = 0;
+                }
+
+                if (this.y + this.height/2 >= canvas.height) {
+                    this.y = canvas.height - this.height/2;
+                    gameOver();
+                }
+            }
+
+            flap() {
+                this.velocity = this.jumpStrength;
+            }
+        }
+
+        class Pipe {
+            constructor() {
+                this.x = canvas.width;
+                this.topHeight = Math.random() * (canvas.height / 2);
+                this.bottomY = this.topHeight + 220; 
+                this.width = 80;
+                this.color = '#73bf2e';
+                this.passed = false;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.strokeStyle = '#558c22';
+                ctx.lineWidth = 3;
+
+                ctx.fillRect(this.x, 0, this.width, this.topHeight);
+                ctx.strokeRect(this.x, 0, this.width, this.topHeight);
+                ctx.fillRect(this.x - 5, this.topHeight - 30, this.width + 10, 30);
+                ctx.strokeRect(this.x - 5, this.topHeight - 30, this.width + 10, 30);
+
+                ctx.fillRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY);
+                ctx.strokeRect(this.x, this.bottomY, this.width, canvas.height - this.bottomY);
+                ctx.fillRect(this.x - 5, this.bottomY, this.width + 10, 30);
+                ctx.strokeRect(this.x - 5, this.bottomY, this.width + 10, 30);
+            }
+
+            update() {
+                this.x -= 4; // Normal speed
+                if (bird.x + bird.width/2 > this.x && bird.x - bird.width/2 < this.x + this.width) {
+                    if (bird.y - bird.height/2 < this.topHeight || bird.y + bird.height/2 > this.bottomY) {
+                        gameOver();
+                    }
+                }
+                if (this.x + this.width < bird.x && !this.passed) {
+                    score++;
+                    document.getElementById('scoreBoard').innerText = score;
+                    this.passed = true;
+                }
+            }
+        }
+
+        function initGame() {
+            bird = new Bird();
+            pipes = [];
+            score = 0;
+            frames = 0;
+            document.getElementById('scoreBoard').innerText = score;
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawClouds();
+            bird.update();
+            bird.draw();
+
+            if (frames % 100 === 0) {
+                pipes.push(new Pipe());
+            }
+
+            for (let i = 0; i < pipes.length; i++) {
+                pipes[i].update();
+                pipes[i].draw();
+                if (pipes[i].x + pipes[i].width < 0) {
+                    pipes.shift();
+                    i--;
+                }
+            }
+
+            frames++;
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function drawClouds() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            const speed = 0.5;
+            const pos = (frames * speed) % (canvas.width + 200);
+            
+            ctx.beginPath();
+            ctx.arc(canvas.width - pos, 100, 40, 0, Math.PI * 2);
+            ctx.arc(canvas.width - pos + 50, 110, 50, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(canvas.width/2 - pos + 200, 300, 60, 0, Math.PI * 2);
+            ctx.arc(canvas.width/2 - pos + 280, 280, 70, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function startGame() {
+            if (gameRunning) return;
+            initGame();
+            gameRunning = true;
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameOverScreen').style.display = 'none';
+            bird.flap();
+            gameLoop();
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            document.getElementById('finalScore').innerText = 'Score: ' + score;
+            document.getElementById('gameOverScreen').style.display = 'block';
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        // --- 3. CAMERA & AI ---
+        const videoElement = document.getElementById('input_video');
+        const canvasElement = document.getElementById('output_canvas');
+        const canvasCtx = canvasElement.getContext('2d');
+        const statusText = document.getElementById('statusText');
+        const enableCameraBtn = document.getElementById('enableCameraBtn');
+        const startBtn = document.getElementById('startBtn');
+        const gestureHint = document.getElementById('gestureHint');
+        
+        let isPinching = false;
+        let lastStartTrigger = 0;
+        let lastActionTime = 0; // Cooldown to prevent "Flying to Space"
+
+        function enableCamera() {
+            enableCameraBtn.disabled = true;
+            enableCameraBtn.innerHTML = 'Starting... <div class="spinner"></div>';
+            statusText.innerText = "Connecting to Camera...";
+            
+            const hands = new Hands({locateFile: (file) => {
+                return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+            }});
+
+            hands.setOptions({
+                maxNumHands: 1,
+                modelComplexity: 1,
+                minDetectionConfidence: 0.5,
+                minTrackingConfidence: 0.5
+            });
+
+            hands.onResults(onResults);
+
+            const camera = new Camera(videoElement, {
+                onFrame: async () => {
+                    await hands.send({image: videoElement});
+                },
+                width: 320,
+                height: 240
+            });
+
+            camera.start()
+                .then(() => {
+                    document.getElementById('cameraBox').style.display = 'block';
+                    enableCameraBtn.style.display = 'none';
+                    startBtn.style.display = 'block';
+                    gestureHint.style.display = 'block';
+                    document.getElementById('startInstruction').innerText = "Camera Active!";
+                    
+                    statusText.innerText = "Ready! Pinch to Fly";
+                    statusText.style.color = "#4ade80";
+                    isCameraReady = true;
+                })
+                .catch(err => {
+                    console.error(err);
+                    statusText.innerText = "Error: Camera Denied";
+                    statusText.style.color = "red";
+                    enableCameraBtn.innerText = "Retry";
+                    enableCameraBtn.disabled = false;
+                });
+        }
+
+        function onResults(results) {
+            canvasCtx.save();
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+            if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+                const landmarks = results.multiHandLandmarks[0];
+                drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS, {color: '#00FF00', lineWidth: 2});
+                drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1, radius: 2});
+
+                const indexTip = landmarks[8];
+                const thumbTip = landmarks[4];
+                const distance = Math.hypot(indexTip.x - thumbTip.x, indexTip.y - thumbTip.y);
+                
+                // Threshold for pinch
+                const pinchThreshold = 0.05;
+
+                if (distance < pinchThreshold) {
+                    canvasCtx.beginPath();
+                    canvasCtx.arc(indexTip.x * canvasElement.width, indexTip.y * canvasElement.height, 15, 0, 2 * Math.PI);
+                    canvasCtx.fillStyle = "#00FF00";
+                    canvasCtx.fill();
+
+                    if (!isPinching) {
+                        isPinching = true; 
+                        
+                        const now = Date.now();
+                        // 150ms cooldown to clean up noise but keep it snappy
+                        if (now - lastActionTime > 150) { 
+                            if (gameRunning) {
+                                bird.flap();
+                                lastActionTime = now;
+                            } else if (isCameraReady) {
+                                // Start game Logic
+                                if (now - lastStartTrigger > 1000) {
+                                    startGame();
+                                    lastStartTrigger = now;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    isPinching = false;
+                }
+            } else {
+                isPinching = false;
+            }
+            canvasCtx.restore();
+        }
+
+        // Initial render
+        drawClouds();
+    </script>
+</body>
+</html>
