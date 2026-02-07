@@ -43,6 +43,11 @@ async function loadAllLibraries() {
             const loadingOverlay = document.getElementById('loadingOverlay');
             const startScreen = document.getElementById('startScreen');
             
+            // Populate stats before showing
+            if (typeof updateHomeStats === 'function') {
+                updateHomeStats();
+            }
+
             if (loadingOverlay) {
                 loadingOverlay.style.opacity = '0';
                 setTimeout(() => {

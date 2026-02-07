@@ -73,20 +73,52 @@
     </div>
 
     <!-- Start Screen -->
-    <div id="startScreen">
-        <img src="public/assets/message.svg" alt="Flappy Hands" class="mx-auto mb-4 w-48 animate-bounce">
+    <div id="startScreen" class="bg-white/95 p-6 rounded-2xl shadow-2xl w-[90%] max-w-md text-center backdrop-blur-sm border-4 border-amber-500">
+        <h1 class="text-3xl font-extrabold text-amber-800 mb-2 font-['Press_Start_2P'] tracking-widest drop-shadow-sm leading-tight">FLAPPY HANDS</h1>
         
-        <p class="mb-4 text-gray-600 font-bold" id="startInstruction">Scripts Loaded. Enable Camera.</p>
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 gap-3 mb-4">
+            <!-- Best Score -->
+            <div class="col-span-2 bg-amber-100 p-2 rounded-xl border-2 border-amber-300">
+                <div class="text-xs text-amber-600 font-bold uppercase tracking-wider mb-1">Best Score</div>
+                <div id="homeBestScore" class="text-2xl font-black text-amber-800 font-['Press_Start_2P']">0</div>
+            </div>
+
+            <!-- Medals -->
+            <div class="col-span-2 bg-slate-100 p-2 rounded-xl border-2 border-slate-300">
+                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Medal Collection</div>
+                <div class="flex justify-around items-center">
+                    <div class="flex flex-col items-center">
+                        <img src="public/assets/medal_platinum.svg" class="w-8 h-8 mb-1 drop-shadow-md">
+                        <span id="countPlatinum" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <img src="public/assets/medal_gold.svg" class="w-8 h-8 mb-1 drop-shadow-md">
+                        <span id="countGold" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <img src="public/assets/medal_silver.svg" class="w-8 h-8 mb-1 drop-shadow-md">
+                        <span id="countSilver" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <img src="public/assets/medal_bronze.svg" class="w-8 h-8 mb-1 drop-shadow-md">
+                        <span id="countBronze" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mb-4 text-gray-600 font-bold text-sm" id="startInstruction">Scripts Loaded. Enable Camera.</p>
         
-        <button id="enableCameraBtn" class="btn btn-secondary" onclick="enableCamera()">
-            ENABLE CAMERA
+        <button id="enableCameraBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-[0_4px_0_rgb(29,78,216)] active:shadow-[0_0px_0_rgb(29,78,216)] active:translate-y-1 transition-all uppercase tracking-wide text-sm mb-3 font-['Press_Start_2P']" onclick="enableCamera()">
+            Enable Camera
         </button>
 
-        <button id="startBtn" class="btn" style="display: none;" onclick="startGame()">
-            START GAME
+        <button id="startBtn" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-[0_4px_0_rgb(217,119,6)] active:shadow-[0_0px_0_rgb(217,119,6)] active:translate-y-1 transition-all uppercase tracking-wide text-sm font-['Press_Start_2P']" style="display: none;" onclick="startGame()">
+            Start Game
         </button>
         
-        <p id="gestureHint" class="mt-4 text-xs text-green-600 font-bold animate-pulse" style="display: none;">
+        <p id="gestureHint" class="mt-4 text-xs text-green-600 font-bold animate-pulse uppercase" style="display: none;">
             or PINCH to START!
         </p>
     </div>

@@ -255,10 +255,19 @@ function gameOver() {
     }
 
     let medalSrc = "";
-    if (score >= 40) medalSrc = "public/assets/medal_platinum.svg";
-    else if (score >= 30) medalSrc = "public/assets/medal_gold.svg";
-    else if (score >= 20) medalSrc = "public/assets/medal_silver.svg";
-    else if (score >= 10) medalSrc = "public/assets/medal_bronze.svg";
+    if (score >= 40) {
+        medalSrc = "public/assets/medal_platinum.svg";
+        incrementMedal('platinum');
+    } else if (score >= 30) {
+        medalSrc = "public/assets/medal_gold.svg";
+        incrementMedal('gold');
+    } else if (score >= 20) {
+        medalSrc = "public/assets/medal_silver.svg";
+        incrementMedal('silver');
+    } else if (score >= 10) {
+        medalSrc = "public/assets/medal_bronze.svg";
+        incrementMedal('bronze');
+    }
 
     document.getElementById('finalScore').innerText = score;
     document.getElementById('bestScore').innerText = highScore;
@@ -273,6 +282,34 @@ function gameOver() {
 
     document.getElementById('gameOverScreen').style.display = 'block';
     document.getElementById('scoreBoard').style.display = 'none';
+    updateHomeStats(); // Update stats for next time
+}
+
+function incrementMedal(type) {
+    let key = 'flappyMedal_' + type;
+    let count = parseInt(localStorage.getItem(key) || '0');
+    localStorage.setItem(key, count + 1);
+}
+
+// Function to update stats on the home screen (called from index.html/loader.js)
+function updateHomeStats() {
+    const highScore = localStorage.getItem('flappyHighScore') || 0;
+    const pCount = localStorage.getItem('flappyMedal_platinum') || 0;
+    const gCount = localStorage.getItem('flappyMedal_gold') || 0;
+    const sCount = localStorage.getItem('flappyMedal_silver') || 0;
+    const bCount = localStorage.getItem('flappyMedal_bronze') || 0;
+
+    const elBest = document.getElementById('homeBestScore');
+    const elP = document.getElementById('countPlatinum');
+    const elG = document.getElementById('countGold');
+    const elS = document.getElementById('countSilver');
+    const elB = document.getElementById('countBronze');
+
+    if (elBest) elBest.innerText = highScore;
+    if (elP) elP.innerText = pCount;
+    if (elG) elG.innerText = gCount;
+    if (elS) elS.innerText = sCount;
+    if (elB) elB.innerText = bCount;
 }
 
 function resetGame() {
