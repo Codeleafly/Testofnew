@@ -74,5 +74,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: Asset Update
   - Description: Updated bird SVG asset (detected as unstaged change).
 
+- [2026-02-07 18:44:07 IST]
+  - File: index.html
+  - Lines changed: +42 / -38
+  - Change type: UI Aesthetic Polish
+  - Description: Overhauled Home and Game Over screens to match the classic Flappy Bird aesthetic. Added medal names (PLAT, GOLD, SILV, BRON) and updated layouts for better readability and style.
+
 ---
 *Report generated on Saturday, February 7, 2026.*
