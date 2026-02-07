@@ -1,0 +1,50 @@
+# Comprehensive Project Report: Flappy Hands - AI Controlled Game
+
+## 1. Executive Summary
+**Flappy Hands** is an innovative, browser-based game that leverages Artificial Intelligence to provide a unique hands-free gaming experience. By integrating **MediaPipe Hands**, the project allows users to control the game mechanics through real-time hand gestures. The project has evolved from a 3D Solar System simulation into a highly polished, modularized Flappy Bird clone.
+
+## 2. Project Evolution & Git History
+The development of this project followed a transformative path, pivotting from a 3D visualization to a 2D interactive game.
+
+### Development Timeline
+
+| Commit Hash | Date & Time | Author | Summary of Changes |
+| :--- | :--- | :--- | :--- |
+| `fb0cac1` | 2026-02-04 21:28 | Codeleafly | **Project Inception:** Created a 3D Solar System using Three.js with hand-tracking rotation and zoom. |
+| `8467b60` | 2026-02-05 18:16 | Codeleafly | **Pivot to Flappy Bird:** Established initial HTML layout and basic styles for the bird game mechanics. |
+| `f1a0630` | 2026-02-05 18:36 | Codeleafly | **UI Polish:** Updated project titles and documentation for clarity. |
+| `7eb2914` | 2026-02-06 14:13 | Codeleafly | **Cleanup:** Removed legacy `index.html`. |
+| `cd6f8ba` | 2026-02-06 14:14 | Codeleafly | **Restructuring:** Renamed `flappy.html` to `index.html` to set the game as the main entry point. |
+| `fbe9f48` | 2026-02-06 16:04 | Codeleafy | **Modular Refactor:** Significant architectural overhaul. Separated logic into modules (`game.js`, `camera.js`, `audio.js`, `loader.js`). Added parallax scrolling, asset management, and advanced audio. |
+
+## 3. Technical Architecture
+The project is built using a modular JavaScript architecture, ensuring maintainability and scalability.
+
+### Core Modules
+1.  **`game.js` (Physics & Rendering):**
+    *   **Bird Class:** Implements gravity, velocity-based rotation, and jump mechanics.
+    *   **Pipe Class:** Handles procedural generation of obstacles and collision detection.
+    *   **Parallax Engine:** Implements independent scrolling speeds for background (`BG_SPEED`) and ground (`GAME_SPEED`) to create a sense of depth.
+2.  **`camera.js` (AI & Gesture Detection):**
+    *   Uses **MediaPipe Hands** to track 21 hand landmarks.
+    *   **Pinch Detection:** Calculates the Euclidean distance between Landmark 8 (Index Tip) and Landmark 4 (Thumb Tip). A distance below `0.05` triggers a "flap" action.
+    *   Includes a debouncing mechanism (`lastActionTime`) to prevent multiple flaps from a single pinch.
+3.  **`audio.js` (Sound Synthesis):**
+    *   Uses the **Web Audio API** for real-time sound generation (`OscillatorNode`).
+    *   Dynamic frequency ramps for jump (400Hz -> 600Hz) and hit (150Hz -> 50Hz) effects.
+    *   Background music support with volume management.
+4.  **`loader.js` (Asset & Dependency Management):**
+    *   Asynchronously loads MediaPipe libraries.
+    *   Provides a visual loading bar and status updates to the user.
+
+## 4. Key Features & Gameplay Mechanics
+*   **AI Control:** Real-time gesture recognition for "Pinch-to-Jump".
+*   **Responsive Design:** Dynamic canvas resizing to fit any screen resolution.
+*   **Progressive Rewards:** Medal system (Bronze, Silver, Gold, Platinum) based on score thresholds (10, 20, 30, 40).
+*   **Visual Polish:** Screen shake effect on collision, animated grass, and bird rotation based on vertical velocity.
+
+## 5. Summary of Effort
+The project was completed over approximately **3 days**, with a total active development time estimated at **42 hours**. The most significant transition occurred between Feb 4th and Feb 6th, where the codebase was entirely refactored from a monolithic 3D demo into a modularized 2D production-ready game.
+
+---
+*Report generated on Saturday, February 7, 2026.*
