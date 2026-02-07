@@ -48,5 +48,31 @@ The project is built using a modular JavaScript architecture, ensuring maintaina
 ## 5. Summary of Effort
 The project was completed over approximately **3 days**, with a total active development time estimated at **42 hours**. The most significant transition occurred between Feb 4th and Feb 6th, where the codebase was entirely refactored from a monolithic 3D demo into a modularized 2D production-ready game.
 
+## 6. Change Log (Post-Report Generation)
+
+- [2026-02-07 18:40:42 IST]
+  - File: index.html
+  - Lines changed: +48 / -5
+  - Change type: UI Refactor & Feature Add
+  - Description: Replaced bouncing SVG start screen with a Tailwind CSS dashboard displaying 'Best Score' and 'Medal Collection'.
+
+- [2026-02-07 18:40:42 IST]
+  - File: public/js/game.js
+  - Lines changed: +45 / -3
+  - Change type: Logic Update
+  - Description: Added localStorage persistence for medal counts and implemented 'updateHomeStats' function.
+
+- [2026-02-07 18:40:42 IST]
+  - File: public/js/loader.js
+  - Lines changed: +5 / -0
+  - Change type: Integration
+  - Description: Hooked 'updateHomeStats' to the loading sequence.
+
+- [2026-02-07 18:40:42 IST]
+  - File: public/assets/bird.svg
+  - Lines changed: +81 / -24
+  - Change type: Asset Update
+  - Description: Updated bird SVG asset (detected as unstaged change).
+
 ---
 *Report generated on Saturday, February 7, 2026.*
