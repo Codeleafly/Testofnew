@@ -73,82 +73,86 @@
     </div>
 
     <!-- Start Screen -->
-    <div id="startScreen" class="bg-white/95 p-6 rounded-2xl shadow-2xl w-[90%] max-w-md text-center backdrop-blur-sm border-4 border-amber-500">
-        <h1 class="text-3xl font-extrabold text-amber-800 mb-2 font-['Press_Start_2P'] tracking-widest drop-shadow-sm leading-tight">FLAPPY HANDS</h1>
+    <div id="startScreen" class="bg-[#ded895] p-6 rounded-lg border-4 border-[#553000] shadow-[8px_8px_0_rgba(0,0,0,0.2)] w-[90%] max-w-md text-center">
+        <h1 class="text-2xl font-black text-[#e58936] mb-4 font-['Press_Start_2P'] tracking-tighter drop-shadow-[2px_2px_0_#000] leading-tight italic">FLAPPY HANDS</h1>
         
         <!-- Stats Grid -->
-        <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="mb-6">
             <!-- Best Score -->
-            <div class="col-span-2 bg-amber-100 p-2 rounded-xl border-2 border-amber-300">
-                <div class="text-xs text-amber-600 font-bold uppercase tracking-wider mb-1">Best Score</div>
-                <div id="homeBestScore" class="text-2xl font-black text-amber-800 font-['Press_Start_2P']">0</div>
+            <div class="bg-white/30 p-3 rounded border-2 border-[#553000] mb-4">
+                <div class="text-[10px] text-[#553000] font-bold uppercase tracking-wider mb-2 font-['Press_Start_2P']">Best Score</div>
+                <div id="homeBestScore" class="text-3xl font-black text-white font-['Press_Start_2P'] drop-shadow-[3px_3px_0_#000]">0</div>
             </div>
 
             <!-- Medals -->
-            <div class="col-span-2 bg-slate-100 p-2 rounded-xl border-2 border-slate-300">
-                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Medal Collection</div>
-                <div class="flex justify-around items-center">
+            <div class="bg-white/30 p-3 rounded border-2 border-[#553000]">
+                <div class="text-[10px] text-[#553000] font-bold uppercase tracking-wider mb-4 font-['Press_Start_2P']">Medal Collection</div>
+                <div class="grid grid-cols-4 gap-2">
                     <div class="flex flex-col items-center">
-                        <img src="public/assets/medal_platinum.svg" class="w-8 h-8 mb-1 drop-shadow-md">
-                        <span id="countPlatinum" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                        <img src="public/assets/medal_platinum.svg" class="w-10 h-10 mb-2 drop-shadow-md">
+                        <div class="text-[8px] font-bold text-[#553000] mb-1 font-['Press_Start_2P']">PLAT</div>
+                        <span id="countPlatinum" class="text-[10px] font-bold text-white font-['Press_Start_2P'] drop-shadow-[1px_1px_0_#000]">0</span>
                     </div>
                     <div class="flex flex-col items-center">
-                        <img src="public/assets/medal_gold.svg" class="w-8 h-8 mb-1 drop-shadow-md">
-                        <span id="countGold" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                        <img src="public/assets/medal_gold.svg" class="w-10 h-10 mb-2 drop-shadow-md">
+                        <div class="text-[8px] font-bold text-[#553000] mb-1 font-['Press_Start_2P']">GOLD</div>
+                        <span id="countGold" class="text-[10px] font-bold text-white font-['Press_Start_2P'] drop-shadow-[1px_1px_0_#000]">0</span>
                     </div>
                     <div class="flex flex-col items-center">
-                        <img src="public/assets/medal_silver.svg" class="w-8 h-8 mb-1 drop-shadow-md">
-                        <span id="countSilver" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                        <img src="public/assets/medal_silver.svg" class="w-10 h-10 mb-2 drop-shadow-md">
+                        <div class="text-[8px] font-bold text-[#553000] mb-1 font-['Press_Start_2P']">SILV</div>
+                        <span id="countSilver" class="text-[10px] font-bold text-white font-['Press_Start_2P'] drop-shadow-[1px_1px_0_#000]">0</span>
                     </div>
                     <div class="flex flex-col items-center">
-                        <img src="public/assets/medal_bronze.svg" class="w-8 h-8 mb-1 drop-shadow-md">
-                        <span id="countBronze" class="text-[10px] font-bold text-gray-700 font-['Press_Start_2P']">0</span>
+                        <img src="public/assets/medal_bronze.svg" class="w-10 h-10 mb-2 drop-shadow-md">
+                        <div class="text-[8px] font-bold text-[#553000] mb-1 font-['Press_Start_2P']">BRON</div>
+                        <span id="countBronze" class="text-[10px] font-bold text-white font-['Press_Start_2P'] drop-shadow-[1px_1px_0_#000]">0</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <p class="mb-4 text-gray-600 font-bold text-sm" id="startInstruction">Scripts Loaded. Enable Camera.</p>
+        <p class="mb-4 text-[#553000] font-bold text-[10px] font-['Press_Start_2P']" id="startInstruction">ENABLE CAMERA TO START</p>
         
-        <button id="enableCameraBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-[0_4px_0_rgb(29,78,216)] active:shadow-[0_0px_0_rgb(29,78,216)] active:translate-y-1 transition-all uppercase tracking-wide text-sm mb-3 font-['Press_Start_2P']" onclick="enableCamera()">
-            Enable Camera
+        <button id="enableCameraBtn" class="w-full bg-[#3b82f6] hover:brightness-110 text-white font-bold py-4 px-6 rounded border-b-8 border-[#1d4ed8] active:border-b-0 active:translate-y-2 transition-all uppercase text-sm mb-4 font-['Press_Start_2P']" onclick="enableCamera()">
+            ENABLE CAMERA
         </button>
 
-        <button id="startBtn" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-6 rounded-lg shadow-[0_4px_0_rgb(217,119,6)] active:shadow-[0_0px_0_rgb(217,119,6)] active:translate-y-1 transition-all uppercase tracking-wide text-sm font-['Press_Start_2P']" style="display: none;" onclick="startGame()">
-            Start Game
+        <button id="startBtn" class="w-full bg-[#f59e0b] hover:brightness-110 text-white font-bold py-4 px-6 rounded border-b-8 border-[#d97706] active:border-b-0 active:translate-y-2 transition-all uppercase text-sm font-['Press_Start_2P']" style="display: none;" onclick="startGame()">
+            START GAME
         </button>
         
-        <p id="gestureHint" class="mt-4 text-xs text-green-600 font-bold animate-pulse uppercase" style="display: none;">
-            or PINCH to START!
+        <p id="gestureHint" class="mt-4 text-[10px] text-green-700 font-bold animate-pulse font-['Press_Start_2P']" style="display: none;">
+            OR PINCH TO START!
         </p>
     </div>
 
     <!-- Game Over Screen -->
-    <div id="gameOverScreen">
-        <h1 class="text-brown mb-4">GAME OVER</h1>
+    <div id="gameOverScreen" class="bg-[#ded895] p-6 rounded-lg border-4 border-[#553000] shadow-[8px_8px_0_rgba(0,0,0,0.2)] w-[90%] max-w-[320px] text-center">
+        <h1 class="text-2xl font-black text-[#e58936] mb-6 font-['Press_Start_2P'] tracking-tighter drop-shadow-[2px_2px_0_#000] italic">GAME OVER</h1>
         
-        <div class="score-box mb-6">
+        <div class="bg-white/40 p-4 rounded border-2 border-[#553000] flex justify-between items-center mb-6">
             <div class="text-center">
-                <div class="score-label">MEDAL</div>
-                <div class="medal-container" style="height: 50px;">
+                <div class="text-[10px] text-[#e58936] font-bold font-['Press_Start_2P'] mb-2">MEDAL</div>
+                <div class="flex justify-center items-center h-14 w-14 mx-auto">
                     <img id="medalImg" src="" alt="Medal" style="display: none; width: 44px;">
                 </div>
             </div>
-            <div class="text-right">
-                <div class="mb-2">
-                    <div class="score-label">SCORE</div>
-                    <div id="finalScore" class="score-value">0</div>
+            <div class="text-right flex flex-col gap-4">
+                <div>
+                    <div class="text-[10px] text-[#e58936] font-bold font-['Press_Start_2P'] mb-1">SCORE</div>
+                    <div id="finalScore" class="text-2xl text-white font-['Press_Start_2P'] drop-shadow-[2px_2px_0_#000]">0</div>
                 </div>
                 <div>
-                    <div class="score-label">BEST</div>
-                    <div id="bestScore" class="score-value">0</div>
+                    <div class="text-[10px] text-[#e58936] font-bold font-['Press_Start_2P'] mb-1">BEST</div>
+                    <div id="bestScore" class="text-2xl text-white font-['Press_Start_2P'] drop-shadow-[2px_2px_0_#000]">0</div>
                 </div>
             </div>
         </div>
 
-        <button onclick="resetGame()" class="btn">RETRY</button>
-        <p class="mt-4 text-xs text-green-600 font-bold animate-pulse">
-            or PINCH to RETRY!
+        <button onclick="resetGame()" class="w-full bg-[#f59e0b] hover:brightness-110 text-white font-bold py-4 px-6 rounded border-b-8 border-[#d97706] active:border-b-0 active:translate-y-2 transition-all uppercase text-sm font-['Press_Start_2P']">RETRY</button>
+        <p class="mt-4 text-[10px] text-green-700 font-bold animate-pulse font-['Press_Start_2P']">
+            OR PINCH TO RETRY!
         </p>
     </div>
 
