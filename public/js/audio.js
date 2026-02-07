@@ -2,13 +2,13 @@ class SoundManager {
     constructor() {
         this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         this.masterGain = this.ctx.createGain();
-        this.masterGain.gain.value = 0.5; // Default volume
+        this.masterGain.gain.value = 1.2; // Boosted volume for SFX
         this.masterGain.connect(this.ctx.destination);
         
         // Music setup
         this.music = new Audio('public/assets/music.mp3');
         this.music.loop = true;
-        this.music.volume = 0.3;
+        this.music.volume = 0.8; // Boosted music volume
     }
 
     playJump() {
