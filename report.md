@@ -80,5 +80,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: UI Aesthetic Polish
   - Description: Overhauled Home and Game Over screens to match the classic Flappy Bird aesthetic. Added medal names (PLAT, GOLD, SILV, BRON) and updated layouts for better readability and style.
 
+- [2026-02-07 18:46:55 IST]
+  - File: public/js/audio.js
+  - Lines changed: +2 / -2
+  - Change type: Audio Enhancement
+  - Description: Boosted volume levels for both background music and sound effects (SFX) to provide a more immersive experience. Master gain increased to 1.2 and music volume to 0.8.
+
 ---
 *Report generated on Saturday, February 7, 2026.*
