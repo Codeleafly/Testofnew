@@ -98,5 +98,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: SEO Optimization
   - Description: Created XML sitemap and robots.txt for search engine indexing. Updated project sitemap documentation.
 
+- [2026-02-07 20:28:46 IST]
+  - File: sitemap.xml, robots.txt
+  - Lines changed: +2 / -2
+  - Change type: SEO Maintenance
+  - Description: Updated sitemap and robots.txt with the correct Netlify production URL.
+
 ---
 *Report generated on Saturday, February 7, 2026.*

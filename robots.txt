@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://codeleafly.github.io/sriramik-small-magic/sitemap.xml
+Sitemap: https://sriramiks-small-magic.netlify.app/sitemap.xml
