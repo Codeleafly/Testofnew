@@ -9,6 +9,8 @@ This sitemap provides an overview of the project structure and the purpose of ea
 - **`GEMINI.md`**: Project-specific rules, reporting standards, and guidelines for the Gemini CLI agent.
 - **`time.js`**: A utility script to get the current authoritative time and date for reporting.
 - **`SITEMAP.md`**: (This file) A map of the project's file structure and descriptions.
+- **`sitemap.xml`**: XML sitemap for Google Search engine indexing.
+- **`robots.txt`**: Instructions for search engine crawlers.
 
 ## 📁 `docs/`
 - **`ARCHITECTURE.md`**: Technical documentation explaining the modular JavaScript structure and data flow.
