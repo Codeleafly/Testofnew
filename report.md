@@ -16,6 +16,8 @@ The development of this project followed a transformative path, pivotting from a
 | `7eb2914` | 2026-02-06 14:13 | Codeleafly | **Cleanup:** Removed legacy `index.html`. |
 | `cd6f8ba` | 2026-02-06 14:14 | Codeleafly | **Restructuring:** Renamed `flappy.html` to `index.html` to set the game as the main entry point. |
 | `fbe9f48` | 2026-02-06 16:04 | Codeleafy | **Modular Refactor:** Significant architectural overhaul. Separated logic into modules (`game.js`, `camera.js`, `audio.js`, `loader.js`). Added parallax scrolling, asset management, and advanced audio. |
+| `b49cc6e` | 2026-02-07 08:35 | Gemini CLI | **Initial Report:** Created a comprehensive project report and development timeline. |
+| (Pending) | 2026-02-07 08:42 | Gemini CLI | **Policy Addition:** Added `GEMINI.md` containing strict project maintenance rules and reporting standards. |
 
 ## 3. Technical Architecture
 The project is built using a modular JavaScript architecture, ensuring maintainability and scalability.
