@@ -1,6 +1,6 @@
 # Architecture Documentation
 
-This document explains the modular structure of the Flappy Hands project.
+This document explains the modular structure of the Motion Bird project.
 
 ## Modular JavaScript
 

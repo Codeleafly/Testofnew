@@ -1,7 +1,7 @@
-# Comprehensive Project Report: Flappy Hands - AI Controlled Game
+# Comprehensive Project Report: Motion Bird - AI Controlled Game
 
 ## 1. Executive Summary
-**Flappy Hands** is an innovative, browser-based game that leverages Artificial Intelligence to provide a unique hands-free gaming experience. By integrating **MediaPipe Hands**, the project allows users to control the game mechanics through real-time hand gestures. The project has evolved from a 3D Solar System simulation into a highly polished, modularized Flappy Bird clone.
+**Motion Bird** is an innovative, browser-based game that leverages Artificial Intelligence to provide a unique hands-free gaming experience. By integrating **MediaPipe Hands**, the project allows users to control the game mechanics through real-time hand gestures. The project has evolved from a 3D Solar System simulation into a highly polished, modularized Flappy Bird clone.
 
 ## 2. Project Evolution & Git History
 The development of this project followed a transformative path, pivotting from a 3D visualization to a 2D interactive game.
@@ -103,6 +103,18 @@ The project was completed over approximately **3 days**, with a total active dev
   - Lines changed: +2 / -2
   - Change type: SEO Maintenance
   - Description: Updated sitemap and robots.txt with the correct Netlify production URL.
+
+- [2026-02-08 14:52:56 IST]
+  - File: index.html
+  - Lines changed: +5 / -2
+  - Change type: SEO & Branding
+  - Description: Rebranded game to "Motion Bird". Added meta description, keywords, and updated page title/heading for SEO optimization.
+
+- [2026-02-08 14:52:56 IST]
+  - File: README.md, SITEMAP.md, docs/ARCHITECTURE.md, report.md, public/assets/message.svg
+  - Lines changed: Multiple
+  - Change type: Global Rebranding
+  - Description: Replaced all occurrences of "Flappy Hands" with "Motion Bird" across documentation and visual assets for consistent branding.
 
 ---
 *Report generated on Saturday, February 7, 2026.*

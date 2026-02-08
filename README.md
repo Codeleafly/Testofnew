@@ -1,4 +1,4 @@
-# Flappy Hands - AI Controlled Game
+# Motion Bird - AI Controlled Game
 
 A professional, modularized version of the Flappy Bird game controlled by hand gestures using MediaPipe AI.
 

@@ -1,6 +1,6 @@
-# Project Sitemap - Flappy Hands
+# Project Sitemap - Motion Bird
 
-This sitemap provides an overview of the project structure and the purpose of each file in the **Flappy Hands** AI-controlled game.
+This sitemap provides an overview of the project structure and the purpose of each file in the **Motion Bird** AI-controlled game.
 
 ## 📁 Root Directory
 - **`index.html`**: The main entry point of the application. Contains the UI layout, game canvas, and overlays for the start/game-over screens.
