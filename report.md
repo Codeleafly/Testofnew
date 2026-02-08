@@ -122,5 +122,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: Logic Migration
   - Description: Updated localStorage keys from "flappy" to "motionBird" for consistent branding. Added fallback logic to ensure users don't lose their previous high scores and medals.
 
+- [2026-02-08 14:59:04 IST]
+  - File: index.html
+  - Lines changed: +2 / -0
+  - Change type: SEO & UX Optimization
+  - Description: Added SVG favicon and apple-touch-icon links using the bird.svg asset for better browser tab branding.
+
 ---
 *Report generated on Saturday, February 7, 2026.*
