@@ -116,5 +116,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: Global Rebranding
   - Description: Replaced all occurrences of "Flappy Hands" with "Motion Bird" across documentation and visual assets for consistent branding.
 
+- [2026-02-08 14:52:56 IST]
+  - File: public/js/game.js
+  - Lines changed: +15 / -10
+  - Change type: Logic Migration
+  - Description: Updated localStorage keys from "flappy" to "motionBird" for consistent branding. Added fallback logic to ensure users don't lose their previous high scores and medals.
+
 ---
 *Report generated on Saturday, February 7, 2026.*

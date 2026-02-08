@@ -4,7 +4,8 @@ const ctx = canvas.getContext('2d');
 
 let frames = 0;
 let score = 0;
-let highScore = localStorage.getItem('flappyHighScore') || 0;
+// Rebranding: Fallback to old high score if new one doesn't exist
+let highScore = localStorage.getItem('motionBirdHighScore') || localStorage.getItem('flappyHighScore') || 0;
 let gameRunning = false;
 let bird;
 let pipes = [];
@@ -251,7 +252,7 @@ function gameOver() {
 
     if (score > highScore) {
         highScore = score;
-        localStorage.setItem('flappyHighScore', highScore);
+        localStorage.setItem('motionBirdHighScore', highScore);
     }
 
     let medalSrc = "";
@@ -286,18 +287,19 @@ function gameOver() {
 }
 
 function incrementMedal(type) {
-    let key = 'flappyMedal_' + type;
-    let count = parseInt(localStorage.getItem(key) || '0');
+    let key = 'motionBirdMedal_' + type;
+    let oldKey = 'flappyMedal_' + type;
+    let count = parseInt(localStorage.getItem(key) || localStorage.getItem(oldKey) || '0');
     localStorage.setItem(key, count + 1);
 }
 
 // Function to update stats on the home screen (called from index.html/loader.js)
 function updateHomeStats() {
-    const highScore = localStorage.getItem('flappyHighScore') || 0;
-    const pCount = localStorage.getItem('flappyMedal_platinum') || 0;
-    const gCount = localStorage.getItem('flappyMedal_gold') || 0;
-    const sCount = localStorage.getItem('flappyMedal_silver') || 0;
-    const bCount = localStorage.getItem('flappyMedal_bronze') || 0;
+    const highScore = localStorage.getItem('motionBirdHighScore') || localStorage.getItem('flappyHighScore') || 0;
+    const pCount = localStorage.getItem('motionBirdMedal_platinum') || localStorage.getItem('flappyMedal_platinum') || 0;
+    const gCount = localStorage.getItem('motionBirdMedal_gold') || localStorage.getItem('flappyMedal_gold') || 0;
+    const sCount = localStorage.getItem('motionBirdMedal_silver') || localStorage.getItem('flappyMedal_silver') || 0;
+    const bCount = localStorage.getItem('motionBirdMedal_bronze') || localStorage.getItem('flappyMedal_bronze') || 0;
 
     const elBest = document.getElementById('homeBestScore');
     const elP = document.getElementById('countPlatinum');
