@@ -134,5 +134,11 @@ The project was completed over approximately **3 days**, with a total active dev
   - Change type: Asset Generation
   - Description: Generated multi-resolution favicon.ico from bird.svg using ImageMagick for maximum browser compatibility.
 
+- [2026-02-08 16:08:54 IST]
+  - File: index.html
+  - Lines changed: +6 / -6
+  - Change type: SEO Bug Fix
+  - Description: Fixed "More than one h1" error by changing Game Over heading to h2. Added descriptive alt attributes to 4 medal images to fix accessibility/SEO warnings.
+
 ---
 *Report generated on Saturday, February 7, 2026.*
